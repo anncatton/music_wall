@@ -1,10 +1,34 @@
-# Homepage (Root path)
 get '/' do
+  @songs = Song.all
   erb :index
 end
 
+get '/new_song' do
+  @song = Song.new
+  erb :'/new_song'
+end
 
-# Song Title (required)
-# Author (required)
-# URL (optional)
-# Timestamps (created_at and updated_at, as you should have with all tables)
+# get '/messages/new' do
+#   @message = Message.new
+#   erb :'messages/new'
+# end
+
+post '/new_song' do
+  @song = Song.new(
+    author: params[:author],
+    title: params[:title],
+    url: params[:url]
+    )
+  @song.save
+  # if @song.save
+  #   redirect '/'
+  # else
+  #   erb :'/new_song'
+  # end
+end
+#   if @message.save
+#     redirect '/messages'
+#   else
+#     erb :'/messages/new'
+#   end
+# end
