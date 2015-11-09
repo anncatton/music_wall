@@ -19,6 +19,7 @@ post '/new_song' do
     title: params[:title],
     url: params[:url]
     )
+
   @song.save
   # if @song.save
   #   redirect '/'
@@ -26,9 +27,4 @@ post '/new_song' do
   #   erb :'/new_song'
   # end
 end
-#   if @message.save
-#     redirect '/messages'
-#   else
-#     erb :'/messages/new'
-#   end
-# end
+
