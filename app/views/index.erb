@@ -1,6 +1,15 @@
-<p>
-  <input type="submit" name="logout" value="Logout" />
-</p>
+<header>
+  <% if session['id'] %>
+    <% user = User.find(session['id']) %>
+    <h3>You are logged in as <%= user.name %></h3>
+  <% end %>
+</header>
+
+<div>
+  <form method="post" action="/logout">
+    <input type="submit" name="logout" value="Logout" />
+  </form>
+</div>
 
 <h1>Song List</h1>
 

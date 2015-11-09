@@ -2,9 +2,9 @@ enable :sessions
 
 get '/' do
   @songs = Song.all
-  # if session['id']
-  #   @session_user = session['id']
-  # end
+  if session['id']
+    @session_user = session['id']
+  end
   erb :index
 end
 
@@ -66,6 +66,10 @@ post '/login' do
   end
 end
 
+post '/logout' do
+  session.clear
+  redirect '/'
+end
 
 # call self inside sinatra when it's running (when you do binding.pry) and it will show you all the environment
 # variables

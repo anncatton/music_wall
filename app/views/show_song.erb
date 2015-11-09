@@ -1,3 +1,10 @@
+<header>
+  <% if session['id'] %>
+    <% user = User.find(session['id']) %>
+    <h3>You are logged in as <%= user.name %></h3>
+  <% end %>
+</header>
+
 <h3><%= @song.title %></h3>
 <input type="submit" name="" value="Upvote" />
 <div>
