@@ -1,3 +1,10 @@
+<% if @song.errors.any? %>
+  <p>Uh oh! Looks like there's some errors to fix before this song can be posted:</p>
+  <% @song.errors.full_messages.each do |error| %>
+    <p><%= error %></p>
+  <% end %>
+<% end %>
+
 <form method="post" action="/new_song">
   <div>
     <label>Author:</label>
