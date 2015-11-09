@@ -1,3 +1,7 @@
+<p>
+  <input type="submit" name="logout" value="Logout" />
+</p>
+
 <h1>Song List</h1>
 
 <% @songs.each do |song| %>
@@ -6,7 +10,8 @@
   <p><%= song.url %>
 <% end %>
 
-<p>Login to post</p>
-<p>
+<p><a href="/login">Login</a> to post</p>
+<p>Never been here? <a href='/new_login'>Create</a> an account!</p>
+<p class="logout">
   <a href="/new_song">Post a new song to the list</a>
 </p>
