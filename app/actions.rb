@@ -8,10 +8,6 @@ get '/new_song' do
   erb :'/new_song'
 end
 
-# get '/messages/new' do
-#   @message = Message.new
-#   erb :'messages/new'
-# end
 
 post '/new_song' do
   @song = Song.new(
@@ -24,6 +20,11 @@ post '/new_song' do
   else
     erb :'/new_song'
   end
-  
 end
+
+get '/show_song/:id' do
+  @song = Song.find(params[:id])
+  erb :'/show_song'
+end
+
 

@@ -1,0 +1,14 @@
+<div>
+  <%= @song.title %>
+</div>
+
+<div>
+  <h4>Other songs posted by <%= @song.author %>:</h4>
+  <% Song.where(author: @song.author).each do |song| %>
+    <% unless song.id == @song.id %>
+      <a href='/show_song/<%= song.id %>'><%= song.title %></a>
+    <% end %>
+  <% end %>
+</div>
+
+<p><a href="/">Back to Song List</a></p>
