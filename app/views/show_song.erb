@@ -1,11 +1,12 @@
-<div>
-  <%= @song.title %>
-</div>
+<h3><%= @song.title %></h3>
 
 <div>
   <h4>Other songs posted by <%= @song.author %>:</h4>
-  <% Song.where(author: @song.author).each do |song| %>
-    <% unless song.id == @song.id %>
+  <% other_songs = Song.where(author: @song.author).where('id != ?', @song.id) %>
+  <% if other_songs.empty? %>
+    <p>This user hasn't posted any other songs </p>
+  <% else %>
+    <% other_songs.each do |song| %>
       <a href='/show_song/<%= song.id %>'><%= song.title %></a>
     <% end %>
   <% end %>
