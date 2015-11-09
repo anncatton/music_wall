@@ -28,3 +28,6 @@ get '/show_song/:id' do
 end
 
 
+
+  # def change
+  #   add_reference :students, :teacher, index: true
