@@ -1,8 +1,8 @@
 helpers do
 
   def current_user
-    if session[:id] and user = User.find(session[:id])
-      user
+    if session[:id] and @user = User.find(session[:id])
+      @user
     end
   end
 
@@ -10,9 +10,7 @@ end
 
 get '/' do
   @songs = Song.all
-  if session[:id]
-    @session_user = session[:id]
-  end
+  current_user
   erb :index
 end
 
@@ -43,17 +41,19 @@ end
 # get rid of this and just pop the login action on the home page
 get '/login' do
   # this just allows a new user to exist as @user, which can then be created with the data the user enters
-  @user = User.new
+  unless current_user
+    @new_user = User.new
+  end
   erb :'/login'
 end
 
 post '/login' do
+if @user = User.find_by_email(params[:email]).try(:authenticate, params[:password])
   # you could search with email, then return 'no user' if it doesn't match
   # and then check whether password matches that user
-  @user = User.where(email: params[:email]).where(password: params[:password])
+  # @user = User.where(email: params[:email]).where(password: params[:password])
   # when you hit the submit button is when post gets activated.
-  if @user.first
-    session[:id] = @user.first.id
+    current_user
     redirect '/'
   else
     erb :'/login'
