@@ -71,6 +71,11 @@ post '/logout' do
   redirect '/'
 end
 
+post '/upvote' do
+  redirect '/'
+end
+
+
 # call self inside sinatra when it's running (when you do binding.pry) and it will show you all the environment
 # variables
 

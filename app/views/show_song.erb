@@ -6,7 +6,9 @@
 </header>
 
 <h3><%= @song.title %></h3>
-<input type="submit" name="" value="Upvote" />
+<form method="post" action="/upvote">
+  <input type="submit" name="upvote" value="Upvote" />
+</form>
 <div>
   <h4>Other songs posted by <%= @song.author %>:</h4>
   <% other_songs = Song.where(author: @song.author).where('id != ?', @song.id) %>
