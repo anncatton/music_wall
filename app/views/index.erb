@@ -1,15 +1,17 @@
 <header>
-  <% if session['id'] %>
-    <% user = User.find(session['id']) %>
+  <% if session[:id] %>
+    <% user = User.find(session[:id]) %>
     <h3>You are logged in as <%= user.name %></h3>
+    <div>
+      <form method="post" action="/logout">
+        <input type="submit" name="logout" value="Logout" />
+      </form>
+    </div>
+  <% else %>
+    <a href="/login"><input type="submit" name="login" value="Login" /></a>
   <% end %>
 </header>
 
-<div>
-  <form method="post" action="/logout">
-    <input type="submit" name="logout" value="Logout" />
-  </form>
-</div>
 
 <h1>Song List</h1>
 

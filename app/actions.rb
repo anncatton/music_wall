@@ -1,9 +1,15 @@
-enable :sessions
+# helpers do
+#   def current_user
+#     if session[:id] and user = User.find(session[:id])
+#       user
+#     end
+#   end
+# end
 
 get '/' do
   @songs = Song.all
-  if session['id']
-    @session_user = session['id']
+  if session[:id]
+    @session_user = session[:id]
   end
   erb :index
 end
@@ -49,7 +55,7 @@ post '/new_login' do
     password: params[:password]
     )
   if @user.save
-    session['id'] = @user.id
+    session[:id] = @user.id
     redirect '/'
   else
     erb :'/new_login'
@@ -57,10 +63,11 @@ post '/new_login' do
 end
 
 post '/login' do
-  @user = User.where(email: params[:email]).where(password: params[:password]).first
-  if @user
-    session['id'] = @user.id
-    redirect '/'
+  if @user = User.find_by(email: params[:email])
+    if @user.password == params[:password]
+      session[:id] = @user.id
+      redirect '/'
+    end
   else
     erb :'/login'
   end
@@ -72,7 +79,7 @@ post '/logout' do
 end
 
 post '/upvote' do
-  if session['id']
+  if session[:id]
     @song = Song.find(params[:id])
     @song.upvotes += 1
     @song.save
