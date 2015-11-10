@@ -1,10 +1,9 @@
-
-songs_and_users_join = User.joins(:songs)
+# make these restful
 
 get '/' do
   @songs = Song.all
   if session[:id]
-    @session_user = session[:id]
+    @user = session[:id]
   end
   erb :index
 end
@@ -59,11 +58,14 @@ end
 
 post '/login' do
   if @user = User.find_by(email: params[:email])
-    if @user.password == params[:password]
+    logged_in = # @user.authenticate(params[:password])
+    # if @user.password == params[:password]
+    if logged_in
       session[:id] = @user.id
       redirect '/'
     end
   else
+    @error = "Invalid username or password!"
     erb :'/login'
   end
 end
@@ -75,9 +77,9 @@ end
 
 post '/upvote' do
   if session[:id]
+    @user = User.find(session[:id])
     @song = Song.find(params[:id])
-    @song.upvotes += 1
-    @song.save
+    binding.pry
   end
   redirect '/'
 end

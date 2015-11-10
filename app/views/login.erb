@@ -6,6 +6,7 @@
 <% end %>
 
 <form method="post" action="/login">
+<p><%= @error.to_s %></p>
   <div>
     <label>Username:</label>
     <input type="text" name="name" placeholder="enter your name" value="<%= @user.name %>" />
