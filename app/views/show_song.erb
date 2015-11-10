@@ -13,7 +13,6 @@
 </header>
 
 <h3><%= @song.title %></h3>
-<h4>Score: <%= @song.upvotes %></h4>
 
 <form method="post" action="/upvote">
   <input type="hidden" name="id" value="<%= @song.id %>" />

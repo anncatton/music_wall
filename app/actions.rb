@@ -1,10 +1,4 @@
-# helpers do
-#   def current_user
-#     if session[:id] and user = User.find(session[:id])
-#       user
-#     end
-#   end
-# end
+
 songs_and_users_join = User.joins(:songs)
 
 get '/' do
