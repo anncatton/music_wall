@@ -79,3 +79,8 @@ end
 # call self inside sinatra when it's running (when you do binding.pry) and it will show you all the environment
 # variables
 
+# to do
+# -- 'author' will become artist (in db and on web display)
+# -- current session user will be the poster - so, the new author
+# -- a user can only post once they're logged in
+# -- add upvote count to song table
