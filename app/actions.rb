@@ -5,6 +5,7 @@
 #     end
 #   end
 # end
+songs_and_users_join = User.joins(:songs)
 
 get '/' do
   @songs = Song.all
@@ -95,3 +96,5 @@ end
 # -- 'author' will become artist (in db and on web display)
 # -- current session user will be the poster - so, the new author
 # -- a user can only post once they're logged in
+# -- wrong password sends user to blank /login (like, empty screen)
+# -- wrong email just throws an error

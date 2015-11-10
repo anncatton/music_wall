@@ -8,10 +8,14 @@
       </form>
     </div>
   <% else %>
-    <a href="/login"><input type="submit" name="login" value="Login" /></a>
+    <div><a href="/login"><input type="submit" name="login" value="Login" /></a> to post</div>
   <% end %>
 </header>
 
+<p>Never been here? <a href='/new_login'>Create</a> an account!</p>
+<p class="logout">
+  <a href="/new_song">Post a new song to the list</a>
+</p>
 
 <h1>Song List</h1>
 
@@ -20,9 +24,3 @@
   <p>Posted by <%= song.author %> at <%= song.created_at %></p>
   <p><%= song.url %>
 <% end %>
-
-<p><a href="/login">Login</a> to post</p>
-<p>Never been here? <a href='/new_login'>Create</a> an account!</p>
-<p class="logout">
-  <a href="/new_song">Post a new song to the list</a>
-</p>
