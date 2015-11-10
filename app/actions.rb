@@ -1,9 +1,17 @@
-enable :sessions
+helpers do
+
+  def current_user
+    if session[:id] and user = User.find(session[:id])
+      user
+    end
+  end
+
+end
 
 get '/' do
   @songs = Song.all
-  if session['id']
-    @session_user = session['id']
+  if session[:id]
+    @session_user = session[:id]
   end
   erb :index
 end
@@ -19,7 +27,8 @@ post '/new_song' do
     title: params[:title],
     url: params[:url]
     )
-  if @song.save
+  if session[:id]
+    @song.save
     redirect '/'
   else
     erb :'/new_song'
@@ -31,9 +40,24 @@ get '/show_song/:id' do
   erb :'/show_song'
 end
 
+# get rid of this and just pop the login action on the home page
 get '/login' do
+  # this just allows a new user to exist as @user, which can then be created with the data the user enters
   @user = User.new
   erb :'/login'
+end
+
+post '/login' do
+  # you could search with email, then return 'no user' if it doesn't match
+  # and then check whether password matches that user
+  @user = User.where(email: params[:email]).where(password: params[:password])
+  # when you hit the submit button is when post gets activated.
+  if @user.first
+    session[:id] = @user.first.id
+    redirect '/'
+  else
+    erb :'/login'
+  end
 end
 
 get '/new_login' do
@@ -49,30 +73,21 @@ post '/new_login' do
     password: params[:password]
     )
   if @user.save
-    session['id'] = @user.id
+    session[:id] = @user.id
     redirect '/'
   else
     erb :'/new_login'
   end
 end
 
-post '/login' do
-  @user = User.where(email: params[:email]).where(password: params[:password]).first
-  if @user
-    session['id'] = @user.id
-    redirect '/'
-  else
-    erb :'/login'
-  end
-end
-
 post '/logout' do
+  # what is session.delete :some_param ?
   session.clear
   redirect '/'
 end
 
 post '/upvote' do
-  if session['id']
+  if session[:id]
     @song = Song.find(params[:id])
     @song.upvotes += 1
     @song.save
@@ -81,10 +96,16 @@ post '/upvote' do
 end
 
 
+# ActiveRecord secure passwords
+
 # call self inside sinatra when it's running (when you do binding.pry) and it will show you all the environment
 # variables
 
 # to do
 # -- 'author' will become artist (in db and on web display)
 # -- current session user will be the poster - so, the new author
-# -- a user can only post once they're logged in
+# -- a user can only post once they're logged in. does this but doesn't display why they can't post
+# -- display upvote score
+# -- display error on wrong login
+# -- display current score on song list
+# -- don't redirect to index on upvote, just update score - is that a page reload?

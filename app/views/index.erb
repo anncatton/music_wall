@@ -1,8 +1,9 @@
 <header>
-  <% if session['id'] %>
-    <% user = User.find(session['id']) %>
+  <% if session[:id] %>
+    <% user = User.find(session[:id]) %>
     <h3>You are logged in as <%= user.name %></h3>
   <% end %>
+  
 </header>
 
 <div>
