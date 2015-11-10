@@ -72,6 +72,11 @@ post '/logout' do
 end
 
 post '/upvote' do
+  if session['id']
+    @song = Song.find(params[:id])
+    @song.upvotes += 1
+    @song.save
+  end
   redirect '/'
 end
 
@@ -83,4 +88,3 @@ end
 # -- 'author' will become artist (in db and on web display)
 # -- current session user will be the poster - so, the new author
 # -- a user can only post once they're logged in
-# -- add upvote count to song table
