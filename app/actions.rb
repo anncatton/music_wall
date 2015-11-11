@@ -58,8 +58,7 @@ end
 
 post '/login' do
   if @user = User.find_by(email: params[:email])
-    logged_in = # @user.authenticate(params[:password])
-    # if @user.password == params[:password]
+    logged_in = @user.authenticate(params[:password])
     if logged_in
       session[:id] = @user.id
       redirect '/'
@@ -79,7 +78,14 @@ post '/upvote' do
   if session[:id]
     @user = User.find(session[:id])
     @song = Song.find(params[:id])
-    binding.pry
+    existing_upvote = UpVote.where(user_id: @user.id, song_id: @song.id)
+    if existing_upvote
+      @error = "Sorry, you can't vote twice for a song!"
+      binding.pry
+    else
+      new_vote = UpVote.new(song_id: @song.id, user_id: @user.id)
+      new_vote.save
+    end
   end
   redirect '/'
 end
