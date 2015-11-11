@@ -1,7 +1,13 @@
 # make these restful
 
 get '/' do
-  @songs = Song.all
+  # @songs = Song.all
+  sql = 'SELECT songs.*, COUNT(up_votes.user_id) as vote_count FROM songs
+  INNER JOIN up_votes
+  ON songs.id = up_votes.song_id
+  GROUP BY songs.id
+  ORDER BY vote_count DESC'
+  @song_list = ActiveRecord::Base.connection.execute(sql)
   if session[:id]
     @user = session[:id]
   end
@@ -41,7 +47,6 @@ get '/new_login' do
   erb :'/new_login'
 end
 
-# this is making a new user
 post '/new_login' do
   @user = User.new(
     name: params[:name],

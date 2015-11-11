@@ -19,8 +19,9 @@
 
 <h1>Song List</h1>
 
-<% @songs.each do |song| %>
-  <h3><a href='/show_song/<%= song.id %>'><%= song.title %></a></h3>
-  <p>Posted by <%= song.author %> at <%= song.created_at %></p>
-  <p><%= song.url %>
+<% @song_list.each do |song| %>
+<% binding.pry %>
+  <h3><a href='/show_song/<%= song['id'] %>'><%= song['title'] %></a></h3>
+  <p>Posted by <%= song['author'] %> at <%= song['created_at'] %></p>
+  <p><%= song['url'] %>
 <% end %>

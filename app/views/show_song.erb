@@ -19,6 +19,7 @@
   <input type="submit" name="upvote" value="Upvote" />
 </form>
 <div>
+<h4><%= @error.to_s %></h4>
   <h4>Other songs posted by <%= @song.author %>:</h4>
   <% other_songs = Song.where(author: @song.author).where('id != ?', @song.id) %>
   <% if other_songs.empty? %>
