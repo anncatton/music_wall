@@ -13,7 +13,7 @@
 </header>
 
 <h3><%= @song.title %></h3>
-
+<h4>Score: <%= UpVote.where(song_id: @song.id).count %></h4>
 <form method="post" action="/upvote">
   <input type="hidden" name="id" value="<%= @song.id %>" />
   <input type="submit" name="upvote" value="Upvote" />

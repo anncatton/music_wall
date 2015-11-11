@@ -79,12 +79,11 @@ post '/upvote' do
     @user = User.find(session[:id])
     @song = Song.find(params[:id])
     existing_upvote = UpVote.where(user_id: @user.id, song_id: @song.id)
-    if existing_upvote
-      @error = "Sorry, you can't vote twice for a song!"
-      binding.pry
-    else
+    if existing_upvote.empty?
       new_vote = UpVote.new(song_id: @song.id, user_id: @user.id)
       new_vote.save
+    else
+      @error = "Sorry, you've already voted for this song!"
     end
   end
   redirect '/'
