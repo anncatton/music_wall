@@ -3,7 +3,7 @@
 get '/' do
   # @songs = Song.all
   sql = 'SELECT songs.*, COUNT(up_votes.user_id) as vote_count FROM songs
-  INNER JOIN up_votes
+  LEFT OUTER JOIN up_votes
   ON songs.id = up_votes.song_id
   GROUP BY songs.id
   ORDER BY vote_count DESC'

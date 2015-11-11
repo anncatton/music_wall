@@ -26,7 +26,9 @@
     <p>This user hasn't posted any other songs </p>
   <% else %>
     <% other_songs.each do |song| %>
-      <a href='/show_song/<%= song.id %>'><%= song.title %></a>
+      <h4>
+        <a href='/show_song/<%= song.id %>'><%= song.title %></a>
+      </h4>
     <% end %>
   <% end %>
 </div>
